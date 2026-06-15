@@ -1,0 +1,6 @@
+tests/
+gatling/
+jenkins/
+docs/
+*.pdf
+.git/
