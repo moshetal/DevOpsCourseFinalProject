@@ -17,7 +17,7 @@ pipeline {
               LOAD:   'simulations.LoadSimulation',
               STRESS: 'simulations.StressSimulation'
             ][params.TEST_TYPE]
-            bat "mvnw.cmd gatling:test -Dgatling.simulationClass=${sim} -DbaseUrl=%BASE_URL%"
+            bat ".\\mvnw.cmd gatling:test -Dgatling.simulationClass=${sim} -DbaseUrl=%BASE_URL%"
           }
         }
       }
