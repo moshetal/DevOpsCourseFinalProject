@@ -13,7 +13,7 @@
     };
 
     String[] roasts = {
-        "has the personality of a soggy cardboard box — but somehow less flexible.",
+        "has the personality of a soggy cardboard box, but somehow less flexible.",
         "is proof that evolution occasionally takes a coffee break.",
         "once tried to outsmart a revolving door. The door won.",
         "is the reason instruction manuals exist.",
