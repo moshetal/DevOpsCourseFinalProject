@@ -1,0 +1,14 @@
+pipeline {
+  agent any
+  triggers { cron('H/5 * * * *') }
+  environment {
+    APP_URL = 'http://localhost:8081/compliment-tal-fellner-reich-kadmon-kokotek/'
+  }
+  stages {
+    stage('Ping') {
+      steps {
+        bat 'powershell -NoProfile -Command "try { $r = Invoke-WebRequest -UseBasicParsing $env:APP_URL -TimeoutSec 20; Write-Host (\'UP \' + $r.StatusCode) } catch { Write-Host \'DOWN\'; exit 1 }"'
+      }
+    }
+  }
+}

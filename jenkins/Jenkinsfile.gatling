@@ -1,0 +1,31 @@
+pipeline {
+  agent any
+  parameters {
+    choice(name: 'TEST_TYPE', choices: ['MAX', 'LOAD', 'STRESS'],
+           description: 'Which Gatling simulation to run')
+  }
+  environment {
+    BASE_URL = 'http://localhost:8081/compliment-tal-fellner-reich-kadmon-kokotek'
+  }
+  stages {
+    stage('Run Gatling') {
+      steps {
+        dir('gatling') {
+          script {
+            def sim = [
+              MAX:    'simulations.MaxLimitSimulation',
+              LOAD:   'simulations.LoadSimulation',
+              STRESS: 'simulations.StressSimulation'
+            ][params.TEST_TYPE]
+            bat "mvnw.cmd gatling:test -Dgatling.simulationClass=${sim} -DbaseUrl=%BASE_URL%"
+          }
+        }
+      }
+    }
+  }
+  post {
+    always {
+      archiveArtifacts artifacts: 'gatling/target/gatling/**', allowEmptyArchive: true
+    }
+  }
+}

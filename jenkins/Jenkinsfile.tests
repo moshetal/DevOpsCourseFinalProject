@@ -1,0 +1,30 @@
+pipeline {
+  agent any
+  environment {
+    BASE_URL = 'http://localhost:8081/compliment-tal-fellner-reich-kadmon-kokotek/'
+  }
+  stages {
+    stage('Install') {
+      steps {
+        dir('tests') {
+          bat 'npm install'
+          bat 'npx playwright install chromium'
+        }
+      }
+    }
+    stage('Test') {
+      steps {
+        dir('tests') {
+          bat 'npx playwright test'
+        }
+      }
+    }
+  }
+  post {
+    always {
+      junit testResults: 'tests/results.xml', allowEmptyResults: true
+      publishHTML(target: [reportDir: 'tests/playwright-report', reportFiles: 'index.html',
+        reportName: 'Playwright Report', keepAll: true, alwaysLinkToLastBuild: true, allowMissing: true])
+    }
+  }
+}
