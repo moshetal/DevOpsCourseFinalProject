@@ -27,18 +27,23 @@
     String action = request.getParameter("action");
     String result = null;
     String mode = null;
+    String error = null;
     String escapedName = "";
 
-    if (name != null && !name.trim().isEmpty() && action != null) {
-        name = name.trim();
-        escapedName = name.replace("&", "&amp;").replace("<", "&lt;").replace("\"", "&quot;");
-        Random rand = new Random();
-        if ("compliment".equals(action)) {
-            result = name + " " + compliments[rand.nextInt(compliments.length)];
-            mode = "compliment";
-        } else if ("roast".equals(action)) {
-            result = name + " " + roasts[rand.nextInt(roasts.length)];
-            mode = "roast";
+    if (action != null) {
+        if (name == null || name.trim().isEmpty()) {
+            error = "Please enter a name first.";
+        } else {
+            name = name.trim();
+            escapedName = name.replace("&", "&amp;").replace("<", "&lt;").replace("\"", "&quot;");
+            Random rand = new Random();
+            if ("compliment".equals(action)) {
+                result = name + " " + compliments[rand.nextInt(compliments.length)];
+                mode = "compliment";
+            } else if ("roast".equals(action)) {
+                result = name + " " + roasts[rand.nextInt(roasts.length)];
+                mode = "roast";
+            }
         }
     }
 %>
@@ -177,6 +182,19 @@
             color: #fca5a5;
         }
 
+        .error-box {
+            margin-top: 28px;
+            padding: 16px 22px;
+            border-radius: 14px;
+            font-size: 0.98rem;
+            font-weight: 600;
+            text-align: left;
+            background: #2a230a;
+            border-left: 4px solid #f59e0b;
+            color: #fcd34d;
+            animation: fadeIn 0.3s ease;
+        }
+
         .result-label {
             font-size: 0.72rem;
             font-weight: 700;
@@ -235,6 +253,12 @@
                 <button type="submit" name="action" value="roast" class="btn-roast">🔥 Roast</button>
             </div>
         </form>
+
+        <% if (error != null) { %>
+        <div class="error-box" id="errorBox" role="alert">
+            ⚠️ <%= error %>
+        </div>
+        <% } %>
 
         <% if (result != null) { %>
         <div class="result-box result-<%= mode %>">
