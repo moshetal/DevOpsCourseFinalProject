@@ -189,6 +189,8 @@
         .result-text {
             font-style: italic;
         }
+        .result-text::before { content: '"'; }
+        .result-text::after  { content: '"'; }
 
         .footer {
             margin-top: 32px;
@@ -241,9 +243,7 @@
             <div class="result-label">
                 <%= "compliment".equals(mode) ? "✨ Compliment" : "🔥 Roast" %>
             </div>
-            <div class="result-text">
-                "<%= result.replace("&", "&amp;").replace("<", "&lt;") %>"
-            </div>
+            <div class="result-text" id="resultText"><%= result.replace("&", "&amp;").replace("<", "&lt;") %></div>
         </div>
         <% } %>
 
