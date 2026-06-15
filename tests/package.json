@@ -1,0 +1,11 @@
+{
+  "name": "compliment-roast-tests",
+  "version": "1.0.0",
+  "description": "Playwright functional tests for the Compliment-o-Roast app",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0"
+  }
+}

@@ -1,0 +1,11 @@
+# Node / Playwright
+tests/node_modules/
+tests/playwright-report/
+tests/test-results/
+tests/results.xml
+# Gatling / Maven
+gatling/target/
+.mvn/wrapper/maven-wrapper.jar
+# OS / IDE
+.DS_Store
+*.log
